@@ -1,0 +1,49 @@
+@model List<Wedding>
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Welcome to Wedding Planner Dashboard</h1>
+        <hr />
+        <a class="float-left btn btn-info " href="Add" role="button">Add New</a>
+        <a class="float-right btn btn-dark" href="/" role="button">Log Out</a><br><
+        <hr />
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Wedding</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Guests</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var wedding in Model)
+                {
+                <tr>
+                    <td>@wedding.SpouseOne & @wedding.SpouseTwo</td>
+                    <td>@wedding.WeddingDate</td>
+                    <td>@wedding.Party.Count</td>
+                    <td>
+                        @if(wedding.Creator.UserId == ViewBag.User.UserId)
+                        {
+                            <a class="text-danger" href="cancel/@wedding.WeddingId">Cancel</a>
+                        }
+                        else
+                        {
+                            if(wedding.Party.All(r => r.UserId != ViewBag.User.UserId))
+                            {
+                                <a class="text-warning" href="Join/@ViewBag.User.UserId/@wedding.WeddingId">RSVP</a>
+                            }
+                            if(wedding.Party.Any(r => r.UserId == ViewBag.User.UserId))
+                            {
+                                <a class="text-info" href="Leave/@ViewBag.User.UserId/@wedding.WeddingId">Un-RSVP</a>
+                            }
+                        }
+                    </td>
+                </tr>    
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

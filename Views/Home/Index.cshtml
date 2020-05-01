@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model User
+
+<div class="container-fluid">
+    <h1 class="text-center display-2">Welcome! </h1>
+    <hr />
+
+    <div class="row mt-5">
+        <div class="col-md">
+            <partial name="_Register"></partial>
+        </div>
+
+        <div class="col-md">
+            <partial name="_Login"></partial>
+        </div>
+    </div>
+</div>
